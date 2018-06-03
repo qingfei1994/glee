@@ -1,0 +1,34 @@
+html,body {
+    height:100%;
+    background-image:url("../image/background.jpg");
+}
+
+body {
+    margin:0 auto;
+    max-width:50cm;
+    color:#FAF7F7;
+    text-shadow:0.05rem 0.1rem rgba(0,0,0,0.5);
+    background-color:#333;
+    display:flex;
+
+}
+
+.index-container {
+    max-width:42em;
+}
+header {
+
+    padding:10vw;
+    max-height:20em;
+}
+.center {
+    padding-left:110px;
+}
+.btn-submit {
+    background-color:#36648B;
+    color:rgba(255,255,255,.5)
+}
+.btn-submit:hover,.btn-submit:active {
+    background-color:rgba(255,255,255,.5);
+    color:#36648B;
+}

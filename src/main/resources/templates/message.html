@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Messages</title>
+    <meta http-equiv="CONTENT-TYPE" content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,inital-scale=1,shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+    <link href="/css/common.css" rel="stylesheet"/>
+    <link href="/css/message.css" rel="stylesheet"/>
+</head>
+<body class="text-center bg-light">
+<header>
+    <div class="bg-blue">
+        <div class="navbar bg-blue box-shadow">
+            <a class="navbar-link navbar-brand" th:href="'/user/greeting?username='+${user.username}">Home</a>
+            <a class="navbar-link navbar-brand">Logout</a>
+        </div>
+    </div>
+</header>
+<main role="main">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <ul class="list-group message-container">
+                <li class="list-group-item" th:each="msg,iter:${page.content}">
+                    <div>
+                        <img class="round-icon message-icon" th:src="'/image/icon'+${iter.index%2}+'.jpg'"/>
+                        <h5 class="message-name" th:text="${msg.username}"><strong></strong></h5>
+                        <h6 class="light message-time" th:text="${#calendars.format(msg.createTimestamp,'YYYY-MM-dd HH:mm:ss')}"></h6>
+                        <p class="light message-content text-left" th:text="${msg.content}"></p>
+                        <button class="btn follow-btn" th:id="${user.id}" th:if="${not follows.contains(msg.username) and not msg.username.equals(user.username)}" th:onclick="'follow('+${msg.userId}+')'" style="margin-top:40px;margin-right:-100px">Follow</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row align-items-center py-3">
+            <ul class="pagination pagination-container" style="float:right;">
+                <li th:if="${page.hasPrevious()}" class="page-item">
+                    <a th:href="@{/message/list(page=${page.number-1},username=${user.username},id=${user.id})}" class="page-link">
+                        <span>&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="index:${#numbers.sequence(0,page.totalPages-1,1)}" th:class="${page.number==index}?'active page-item':'page-item'">
+                    <a th:href="@{/message/list(page=${index},username=${user.username},id=${user.id})}" class="page-link" th:text="${index}+1">
+                    </a>
+                </li>
+                <li th:if="${page.hasNext()}" class="page-item">
+                    <a th:href="@{/message/list(page=${page.number+1},username=${user.username},id=${user.id})}" class="page-link">
+                        <span>&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="toast toast-bottom">
+        hello！
+    </div>
+</main>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var username = /*[[${user.username}]]*/;
+    var userId = /*[[${user.id}]]*/;
+/*]]>*/
+</script>
+<script src="/js/common.js"></script>
+</html>

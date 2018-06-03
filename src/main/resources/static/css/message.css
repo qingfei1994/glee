@@ -1,0 +1,14 @@
+.img-container {
+    background-image=url("header3.jpg")
+}
+.message-container {
+    margin-top:5px;
+    margin-left:175px;
+    width:800px;
+}
+.pagination-container {
+    margin-top:5px;
+    margin-left:500px;
+    width:800px;
+     position:absolute;
+}

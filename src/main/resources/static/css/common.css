@@ -1,0 +1,114 @@
+.foot {
+    color:rgba(255,255,255,.5);
+    box-sizing:border-box;
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+
+}
+.bg-blue {
+
+    background-color:#65738B;
+}
+.message-icon {
+    max-width:50px;
+    float:left;
+}
+.message-name {
+    float:left;
+    padding-left:10px;
+    padding-top:10px;
+    width:10px;
+}
+.message-content {
+    padding-top:50px;
+    float:left;
+}
+.message-time {
+    float:right;
+    padding-top:10px;
+}
+.navbar-link {
+    color:#8FA8CF;
+}
+.navbar-link:hover,.navbar-link:active {
+   color:#C2CCDC
+}
+.follow-btn {
+    float:right;
+    background-color:#366488;
+    color:#F9F8F8;
+}
+.follow-btn:hover,.follow-btn:active {
+    color:#366488;
+    background:#F9F8F8
+
+}
+.round-icon {
+    border:1px solid #9FA8B1;
+    border-radius:100%;
+}
+.light {
+    color:#9FA8B1;
+    size:10em;
+}
+.toast {
+    visibility:hidden;
+    min-width:300px;
+    background-color:#333;
+    margin-left:-125px;
+    color:#fff;
+    text-align:center;
+    border-radius:2px;
+    padding:16px;
+    position:fixed;
+    margin-left:-125px;
+    left:50%;
+    color:#9FA8B1;
+}
+.toast-bottom {
+    bottom:30px;
+}
+.toast-top {
+
+}
+.toast-top.show {
+    visibility:visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+@-webkit-keyframes fadein {
+    from {border-top:0;opacity:0;}
+    to {border-top:20,opacity:1;}
+}
+@-webkit-keyframes fadeout {
+    from {border-top:20;opacity:1;}
+    to {border-top:0,opacity:0;}
+}
+@keyframes fadeout {
+    from {border-top:20;opacity:1;}
+    to {border-top:0,opacity:0;}
+}
+.toast-bottom.show {
+    visibility:visible;
+    -webkit-animation: show 0.5s, hide 0.5s 2.5s;
+    animation: show 0.5s, hide 0.5s 2.5s;
+
+}
+@keyframes show {
+    from {bottom:0;opacity:0;}
+    to {bottom:30px,opacity:1;}
+}
+@-webkit-keyframes show {
+    from {bottom:0;opacity:0;}
+    to {bottom:30px,opacity:1;}
+}
+@-webkit-keyframes hide {
+    from {bottom:30px,opacity:1;}
+    to {bottom:0;opacity:0;}
+}
+@keyframes hide {
+    from {bottom:30px,opacity:1;}
+    to {bottom:0;opacity:0;}
+}

@@ -1,0 +1,65 @@
+header {
+    max-height:20em;
+}
+.greeting-container {
+    height:100%;
+}
+.profile-icon {
+    max-width:100px;
+    margin-top:-70px;
+}
+.profile-container {
+    float:right;
+    width:18rem;
+}
+.profile-title-container {
+    display:flex;
+    margin-left:-20px;
+}
+.profile-title {
+    list-style:none;
+}
+.btn-post {
+    float:right;
+    background-color:#36648B;
+    color:#F9F8F8;
+}
+.btn-post:hover,.btn-post:active {
+    color:#36648B;
+    background-color:#F9F8F8;
+}
+.card-img-top {
+    background-image:url("../image/header1.jpg");
+    height:120px;
+}
+.recommend-icon {
+    max-width:50px;
+    float:left;
+}
+.recommend-list {
+    width:18rem;
+}
+.follow-btn {
+    float:right;
+    background-color:#36648B;
+    color:#F9F8F8;
+}
+.follow-btn:hover, .follow-btn:active{
+    float:right;
+    background-color:#36648B;
+    color:#F9F8F8;
+}
+.post-container {
+    width:18rem;
+    float:right;
+    padding-top:10px;
+}
+.post-time {
+    float:right;
+}
+.post-content {
+    float:left;
+}
+.post-modal {
+    max-width:800px;
+}

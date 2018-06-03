@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="'Hi '+${username}"></title>
+    <meta http-equiv="CONTENT-TYPE" content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,inital-scale=1,shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+    <link href="/css/common.css" rel="stylesheet"/>
+    <link href="/css/greeting.css" rel="stylesheet"/>
+</head>
+<body class="text-center bg-light">
+    <header>
+        <div class="bg-blue">
+            <div class="navbar bg-blue box-shadow">
+                <a class="navbar-link navbar-brand" href="/">Logout</a>
+                <a class="navbar-link navbar-brand" th:href="@{/message/list(username=${user.username},id=${user.id})}">Messages</a>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <div class="py-5 greeting-container">
+            <div class="container-fluid">
+                <div class="row">
+                <div class="col-md-3">
+                    <div class="card profile-container">
+                        <div class="card-img-top"></div>
+                        <div class="card-body">
+                            <img class="round-icon profile-icon" src="/image/icon1.jpg"/>
+                            <h5 class="card-title" th:text="${username}"></h5>
+                            <p class="card-text light">Stay hungry,stay foolish</p>
+                            <div>
+                                <ul class="profile-title-container justify-content-center">
+                                        <li class="profile-title" style="margin-right:30px">
+                                            <h6>Friend</h6>
+                                            <a href="#" data-toggle="modal" data-target="#followModal" th:text="${followCount}"></a>
+                                        </li>
+                                        <li class="profile-title" style="margin-left:10px">
+                                            <h6>Post</h6>
+                                            <a href="#" data-toggle="modal" data-target="#postModal" th:text="${posts.size()}"></a>
+                                        </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-container">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <h5 class="card-title">Abouts</h5>
+                            </li>
+                            <li class="list-group-item">
+                                <p>Work in Guangzhou</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group message-container">
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <textarea class="form-control" row="3" name="message" placeholder="You can post a 140 character message."></textarea>
+                            </div>
+                            <button class="btn btn-post">post</button>
+                        </li>
+                        <li class="list-group-item" th:if="${messages.empty}">
+                            <p class="light">You haven't got any message~ Please follow some friends and have fun!</p>
+                        </li>
+                        <li class="list-group-item" th:each="msg,iter:${messages}">
+                            <div>
+                                <img class="round-icon message-icon" th:src="'/image/icon'+${iter.index%2}+'.jpg'"/>
+                                <h5 class="message-name" th:text="${msg.username}"><strong></strong></h5>
+                                <h6 class="light message-time" th:text="${#calendars.format(msg.createTimestamp,'YYYY-MM-dd HH:mm:ss')}"></h6>
+                                <p class="light message-content text-left" th:text="${msg.content}"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <ul class="list-group recommend-list">
+                        <li class="list-group-item">
+                            <h5 class="card-title">Recommend</h5>
+                        </li>
+                        <li class="list-group-item" th:each="user,iter:${recommends}">
+                            <img class="round-icon message-icon" th:src="'/image/icon'+${iter.index%2}+'.jpg'"/>
+                            <h6 class="message-name" th:text="${user.username}"></h6>
+                            <button class="btn follow-btn" th:id="${user.id}" th:onclick="'follow('+${user.id}+')'">Follow</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal fade" id="followModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Follow</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item" th:if="${follows.empty}">
+                                    <p class="text-center light">You haven't follow any friends~</p>
+                                </li>
+                                <li class="list-group-item" th:each="user,iter:${follows}">
+                                    <img class="round-icon recommend-icon" th:src="'/image/icon'+${iter.index%2}+'.jpg'"/>
+                                    <h6 class="message-name" th:text="${user.username}"></h6>
+                                </li>
+                            </ul>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="postModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">My Posts</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item" th:if="${posts.empty}">
+                                    <p class="text-center light">You haven't post any message~</p>
+                                </li>
+                                <li class="list-group-item" th:each="post:${posts}">
+                                    <div>
+                                        <h6 class="light post-time" th:text="${#calendars.format(post.createTimestamp,'YYYY-MM-dd HH:mm:ss')}"></h6>
+                                        <p class="post-content" th:text="${post.content}"></p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="toast toast-bottom">
+            hello！
+        </div>
+    </main>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var username = /*[[${user.username}]]*/;
+    var userId = /*[[${user.id}]]*/;
+/*]]>*/
+</script>
+<script src="/js/common.js"></script>
+<script src="/js/greeting.js"></script>
+</html>
