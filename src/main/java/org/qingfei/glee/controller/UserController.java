@@ -2,7 +2,6 @@ package org.qingfei.glee.controller;/**
  * Created by ASUS on 6/2/2018.
  */
 
-import org.qingfei.glee.entity.Follow;
 import org.qingfei.glee.entity.Message;
 import org.qingfei.glee.entity.User;
 import org.qingfei.glee.exception.GleeException;
@@ -42,17 +41,15 @@ public class UserController {
         ValidationUtil.validate(User.class,visitor);
         model.addAttribute("username",visitor.getUsername());
         User user = this.userService.saveOrGetUser(visitor);
-        List<Follow> follows = null;
+
         List<Message> messages = new ArrayList<>();
         List<Message> myPosts = null;
-        //get All followers
-        follows = this.followService.getByFollowerId(user.getId());
         messages = this.messageService.findFriendMessage(user.getId());
         myPosts = this.messageService.getMessageByUserId(user.getId());
         List<User> recommendUsers = this.followService.getUnFollowUserByFollowerId(user.getId());
         List<User> followUsers = this.followService.getFollowUserByFollwerId(user.getId());
         model.addAttribute("messages",messages);
-        model.addAttribute("followCount",follows.size());
+        model.addAttribute("followCount",followUsers.size());
         model.addAttribute("posts",myPosts);
         model.addAttribute("user",user);
         model.addAttribute("recommends",recommendUsers);

@@ -42,7 +42,6 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    @Cacheable(value = "messagecache")
     public List<Message> findFriendMessage(long userId) {
         return messageRepository.findFriendMessage(userId);
     }
